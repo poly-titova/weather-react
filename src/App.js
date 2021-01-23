@@ -24,8 +24,7 @@ class App extends React.Component {
       const api_url = await
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
       const data = await api_url.json();
-      console.log(data)
-      
+
       const sunset = data.sys.sunset;
       const date = new Date();
       date.setTime(sunset);
@@ -37,7 +36,16 @@ class App extends React.Component {
         country: data.sys.country,
         pressure: data.main.pressure,
         sunset: sunset_date,
-        error: ""
+        error: undefined
+      });
+    } else {
+      this.setState({
+        temp: undefined,
+        city: undefined,
+        country: undefined,
+        pressure: undefined,
+        sunset: undefined,
+        error: "Введите название города"
       });
     }
   }
